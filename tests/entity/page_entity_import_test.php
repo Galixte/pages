@@ -58,6 +58,7 @@ class page_entity_import_test extends page_entity_base
 			'page_description'			=> 'get_description',
 			'page_display'				=> 'get_page_display',
 			'page_display_to_guests'	=> 'get_page_display_to_guests',
+			'page_icon_font'			=> 'get_icon_font',
 		);
 
 		// Go through each field in the data and make sure the function returns
@@ -94,11 +95,6 @@ class page_entity_import_test extends page_entity_base
 			'page_content_bbcode_options'	=> -1,
 		));
 
-		// Out of range
-		$data[] = array_merge($import_data[1], array(
-			'page_content_allow_html'	=> -1,
-		));
-
 		// Too long
 		$data[] = array_merge($import_data[1], array(
 			'page_route'	=> str_repeat('a', 101),
@@ -114,6 +110,16 @@ class page_entity_import_test extends page_entity_base
 			'page_description'	=> str_repeat('a', 256),
 		));
 
+		// Too long
+		$data[] = array_merge($import_data[1], array(
+			'page_template'	=> str_repeat('a', 256),
+		));
+
+		// Too long
+		$data[] = array_merge($import_data[1], array(
+			'page_icon_font'	=> str_repeat('a', 256),
+		));
+
 		// Go through every field and unset it while submitting everything else
 		foreach ($import_data[1] as $field => $value)
 		{
@@ -123,6 +129,12 @@ class page_entity_import_test extends page_entity_base
 			unset($incomplete[$field]);
 
 			$data[] = $incomplete;
+		}
+
+		// Make each $data array a proper test array
+		foreach ($data as $key => $array)
+		{
+			$data[$key] = array($array);
 		}
 
 		return $data;
