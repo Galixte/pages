@@ -20,12 +20,12 @@ class pages_functional_base extends \phpbb_functional_test_case
 	*
 	* @return array vendor/name of extension(s) to test
 	*/
-	static protected function setup_extensions()
+	protected static function setup_extensions()
 	{
 		return array('phpbb/pages');
 	}
 
-	public function setUp()
+	public function setUp(): void
 	{
 		parent::setUp();
 
@@ -65,6 +65,7 @@ class pages_functional_base extends \phpbb_functional_test_case
 			'page_links'		=> array(2),
 			'page_display'		=> true,
 			'page_guest_display'=> true,
+			'page_title_switch'	=> false,
 			'page_icon_font'	=> '',
 		), $additional_form_data);
 
